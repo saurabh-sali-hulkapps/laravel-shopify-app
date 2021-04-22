@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,11 @@ Route::prefix('customers')->group(function () {
     Route::post('/', [CustomerController::class, 'store'])
         ->name('customers.store');
 
+    Route::get('/count', [CustomerController::class, 'count'])
+        ->name('customers.count');
+
     Route::prefix('{id}')->group(function () {
+
         Route::get('/', [CustomerController::class, 'show'])
             ->name('customers.show');
 
@@ -35,5 +40,29 @@ Route::prefix('customers')->group(function () {
 
         Route::delete('/', [CustomerController::class, 'destroy'])
             ->name('customers.destroy');
+    });
+});
+
+Route::prefix('products')->group(function () {
+
+    Route::get('/', [ProductController::class, 'index'])
+        ->name('products.index');
+
+    Route::post('/', [ProductController::class, 'store'])
+        ->name('products.store');
+
+    Route::get('/count', [ProductController::class, 'count'])
+        ->name('products.count');
+
+    Route::prefix('{id}')->group(function () {
+
+        Route::get('/', [ProductController::class, 'show'])
+            ->name('products.show');
+
+        Route::put('/', [ProductController::class, 'update'])
+            ->name('products.update');
+
+        Route::delete('/', [ProductController::class, 'destroy'])
+            ->name('products.destroy');
     });
 });
