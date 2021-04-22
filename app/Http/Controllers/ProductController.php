@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
-class CustomerController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @return array
      */
     public function index(): array
     {
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->get(env('SHOPIFY_API_DOMAIN') . 'customers.json')->json();
+        )->get(env('SHOPIFY_API_DOMAIN') . 'products.json')->json();
     }
 
     /**
@@ -32,7 +32,7 @@ class CustomerController extends Controller
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->post(env('SHOPIFY_API_DOMAIN') . 'customers.json', $request->all())->json();
+        )->post(env('SHOPIFY_API_DOMAIN') . 'products.json', $request->all())->json();
     }
 
     /**
@@ -46,7 +46,7 @@ class CustomerController extends Controller
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->get(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json')->json();
+        )->get(env('SHOPIFY_API_DOMAIN') . 'products/' . $id . '.json')->json();
     }
 
     /**
@@ -61,7 +61,7 @@ class CustomerController extends Controller
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->put(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json', $request->all())->json();
+        )->put(env('SHOPIFY_API_DOMAIN') . 'products/' . $id . '.json', $request->all())->json();
     }
 
     /**
@@ -75,10 +75,12 @@ class CustomerController extends Controller
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->delete(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json')->json();
+        )->delete(env('SHOPIFY_API_DOMAIN') . 'products/' . $id . '.json')->json();
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
      * @return array
      */
     public function count(): array
@@ -86,6 +88,6 @@ class CustomerController extends Controller
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
-        )->get(env('SHOPIFY_API_DOMAIN') . 'customers/count.json')->json();
+        )->get(env('SHOPIFY_API_DOMAIN') . 'products/count.json')->json();
     }
 }
