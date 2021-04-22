@@ -15,11 +15,10 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $response = Http::withBasicAuth(
+        return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
         )->get(env('SHOPIFY_API_DOMAIN') . 'customers.json')->json();
-        return $response;
     }
 
     /**
@@ -35,12 +34,11 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         return Http::withBasicAuth(
             Config::get('services.shopify.key'),
             Config::get('services.shopify.token')
@@ -53,9 +51,12 @@ class CustomerController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        return Http::withBasicAuth(
+            Config::get('services.shopify.key'),
+            Config::get('services.shopify.token')
+        )->get(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json')->json();
     }
 
     /**
@@ -72,23 +73,29 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param Request $request
+     * @param string $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        //
+        return Http::withBasicAuth(
+            Config::get('services.shopify.key'),
+            Config::get('services.shopify.token')
+        )->put(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json', $request->all())->json();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param string $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        return Http::withBasicAuth(
+            Config::get('services.shopify.key'),
+            Config::get('services.shopify.token')
+        )->delete(env('SHOPIFY_API_DOMAIN') . 'customers/' . $id . '.json')->json();
     }
 }

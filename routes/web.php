@@ -25,4 +25,15 @@ Route::prefix('customers')->group(function () {
 
     Route::post('/', [CustomerController::class, 'store'])
         ->name('customers.store');
+
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', [CustomerController::class, 'show'])
+            ->name('customers.show');
+
+        Route::put('/', [CustomerController::class, 'update'])
+            ->name('customers.update');
+
+        Route::delete('/', [CustomerController::class, 'destroy'])
+            ->name('customers.destroy');
+    });
 });
